@@ -1,0 +1,58 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %} Lista de Instructores - SENA APP {% endblock %}
+
+{% block content %}
+<div class="hero-box text-center">
+    <h2 class="fw-bold">👩‍💼Listado de Instructores👨‍💼</h2>
+</div>
+
+<div class="card p-3 shadow-sm">
+    <table class="table table-hover">
+        <thead class="table-success">
+            <tr>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Ciudad</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for instructor in lista_instructores %}
+            <tr>
+                <td>{{ instructor.documento_identidad }}</td>
+                <td>{{ instructor.nombre }} {{ instructor.apellido }}</td>
+                <td>{{ instructor.especialidad }}</td>
+                <td>{{ instructor.telefono }}</td>
+                <td>{{ instructor.correo }}</td>
+                <td>{{ instructor.ciudad }}</td>
+                <td>
+                    {% if instructor.activo %}
+                        ✔️
+                    {% else %}
+                        ❌
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'detalle_instructor' instructor.documento_identidad %}" 
+                       class="btn btn-sena btn-sm">
+                        Ver más
+                    </a>
+                </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">No hay instructores registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

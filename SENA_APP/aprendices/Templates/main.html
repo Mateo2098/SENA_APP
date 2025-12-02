@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 {% load static%}
 
-{% block title %}Inicio - SENA APP{% endblock %}
+{% block title %}SENA APP{% endblock %}
 
 {% block content %}
 
@@ -34,7 +34,7 @@
             <h5 class="fw-bold">Lista de Instructores</h5>
             <p>Consulta todos los instructores registrados en el sistema.</p>
             <p>Total de Instructores:</p>
-            <button type="button" class="btn btn-outline-success">Ver lista</button>
+            <a href="{% url 'lista_instructores' %}" class="btn btn-outline-success">Ver lista</a>
         </div>
     </div>
 
