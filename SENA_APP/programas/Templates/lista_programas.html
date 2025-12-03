@@ -1,0 +1,89 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %} Lista de Programas - SENA APP {% endblock %}
+
+{% block content %}
+<div class="hero-box text-center">
+    <h2 class="fw-bold">📚 Listado de Programas de Formación</h2>
+</div>
+
+<div class="card p-3 shadow-sm">
+    <table class="table table-hover">
+        <thead class="table-success">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Modalidad</th>
+                <th>Duración (meses)</th>
+                <th>Centro de Formación</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for programa in lista_programas %}
+            <tr>
+                <td>{{ programa.codigo_programa }}</td>
+                <td>{{ programa.nombre }}</td>
+                <td>{{ programa.get_modalidad_display }}</td>
+                <td>{{ programa.duracion_meses }}</td>
+                <td>{{ programa.centro_formacion }}</td>
+                <td>{{ programa.get_estado_display }}</td>
+
+                <td>
+                    
+                    <button class="btn btn-sena btn-sm" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#modalPrograma{{ programa.id }}">
+                        Ver más
+                    </button>
+                </td>
+            </tr>
+
+            
+            <div class="modal fade" id="modalPrograma{{ programa.id }}" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content shadow">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title fw-bold">{{ programa.nombre }}</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>Código:</strong> {{ programa.codigo_programa }}</li>
+                                <li class="list-group-item"><strong>Modalidad:</strong> {{ programa.get_modalidad_display }}</li>
+                                <li class="list-group-item"><strong>Duración (meses):</strong> {{ programa.duracion_meses }}</li>
+                                <li class="list-group-item"><strong>Duración (horas):</strong> {{ programa.duracion_horas }}</li>
+                                <li class="list-group-item"><strong>Descripción:</strong> {{ programa.descripcion }}</li>
+                                <li class="list-group-item"><strong>Competencias:</strong> {{ programa.competencias }}</li>
+                                <li class="list-group-item"><strong>Perfil de egreso:</strong> {{ programa.perfil_egreso }}</li>
+                                <li class="list-group-item"><strong>Requisitos de ingreso:</strong> {{ programa.requisitos_ingreso }}</li>
+                                <li class="list-group-item"><strong>Centro de formación:</strong> {{ programa.centro_formacion }}</li>
+                                <li class="list-group-item"><strong>Regional:</strong> {{ programa.regional }}</li>
+                                <li class="list-group-item"><strong>Estado:</strong> {{ programa.get_estado_display }}</li>
+                                <li class="list-group-item"><strong>Fecha creación:</strong> {{ programa.fecha_creacion }}</li>
+                                <li class="list-group-item"><strong>Fecha registro:</strong> {{ programa.fecha_registro }}</li>
+                            </ul>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">No hay programas registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
